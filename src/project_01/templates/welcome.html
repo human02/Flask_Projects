@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Welcome</title>
+</head>
+
+<body>
+    <h2>Welcome {{ session['user'] }}!</h2>
+    <p> Click below to logout </p>
+    <a href={{ url_for('login') }}>Logout</a>
+</body>
+
+</html>

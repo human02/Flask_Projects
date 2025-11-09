@@ -1,4 +1,4 @@
-from flask import Flask, request, redirect, url_for, Response, session
+from flask import Flask, request, redirect, url_for, Response, session, render_template
 
 app = Flask(__name__)
 app.secret_key = "verysecret"
@@ -7,10 +7,7 @@ app.secret_key = "verysecret"
 # Homepage
 @app.route("/", methods=["GET"])
 def home():
-    return f"""
-    <h2>Welcome to the Homepage</h2>
-    Click <a href={url_for("login")}>here</a> to login.
-    """
+    return render_template("home.html")
 
 
 # - use for Login
@@ -18,18 +15,7 @@ def home():
 def login():
     session.pop("user", None)
     if request.method == "GET":
-        return f"""
-                <h2> Login Page</h2>
-                <form method="POST">
-                <label>Username:</label>
-                        <input type="text" name="username" required>
-                        <br><br>
-                        <label>Password:</label>
-                        <input type="password" name="password" required>
-                        <br><br>
-                        <button type="submit">Login</button>
-                </form>
-                """
+        return render_template("login.html")
 
     if request.method == "POST":
         username = request.form.get("username")
@@ -47,11 +33,7 @@ def login():
 @app.route("/welcome", methods=["GET"])
 def welcome():
     if "user" in session:
-        return f"""
-        <h2>Welcome {session['user']}!</h2>
-        <p> Click below to logout </p>
-        <a href={url_for('login')}>Logout</a>
-        """
+        return render_template("welcome.html")
     else:
         return "Page not Found 404"
 
