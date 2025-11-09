@@ -10,21 +10,21 @@ def home():
     return render_template("home.html")
 
 
-# - use for Login
 @app.route("/login", methods=["GET", "POST"])
 def login():
-    session.pop("user", None)
     if request.method == "GET":
         return render_template("login.html")
 
     if request.method == "POST":
         username = request.form.get("username")
         password = request.form.get("password")
+
         # basic check
         if username == "admin" and password == "12345":
             session["user"] = username
             return redirect(url_for("welcome"))
         else:
+            # default is JSON, hence mime used to send text/plain response
             return Response(
                 "Invalid Credentials, Please try again!", mimetype="text/plain"
             )
@@ -36,6 +36,12 @@ def welcome():
         return render_template("welcome.html")
     else:
         return "Page not Found 404"
+
+
+@app.route("/logout")
+def logout():
+    session.pop("user")
+    return render_template("logout.html")
 
 
 if __name__ == "__main__":
