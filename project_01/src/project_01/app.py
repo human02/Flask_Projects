@@ -3,6 +3,8 @@ from flask import Flask, request, redirect, url_for, Response, session, render_t
 app = Flask(__name__)
 app.secret_key = "verysecret"
 
+valid_users = {"admin": "12345", "john": "doe", "hello": "world"}
+
 
 # Homepage
 @app.route("/", methods=["GET"])
@@ -20,7 +22,7 @@ def login():
         password = request.form.get("password")
 
         # basic check
-        if username == "admin" and password == "12345":
+        if username in valid_users and password == valid_users[username]:
             session["user"] = username
             return redirect(url_for("welcome"))
         else:
