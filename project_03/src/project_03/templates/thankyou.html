@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+
+{% block title %}Thank You{% endblock %}
+
+{% block content %}
+<div class="bg-white rounded-2xl shadow-xl p-8 md:p-12 text-center">
+    <!-- Success Icon -->
+    <div class="mb-6">
+        <div class="inline-flex items-center justify-center w-20 h-20 bg-green-100 rounded-full">
+            <svg class="w-10 h-10 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+            </svg>
+        </div>
+    </div>
+
+    <!-- Thank You Message -->
+    <h2 class="text-4xl font-bold text-gray-800 mb-4">
+        Thank You{% if user %}, {{ user }}{% endif %}!
+    </h2>
+    <p class="text-xl text-gray-600 mb-8">
+        We appreciate your feedback and will work on it.
+    </p>
+
+    <!-- Feedback Display -->
+    {% if message %}
+    <div class="bg-indigo-50 border-l-4 border-indigo-500 rounded-r-lg p-6 mb-8 text-left">
+        <p class="text-sm font-semibold text-indigo-700 mb-2">Your Feedback:</p>
+        <blockquote class="text-gray-700 italic leading-relaxed">
+            "{{ message }}"
+        </blockquote>
+    </div>
+    {% endif %}
+
+    <!-- Back Button -->
+    <div class="pt-4">
+        <a href="/feedback"
+            class="inline-block bg-indigo-600 text-white font-semibold py-3 px-8 rounded-lg hover:bg-indigo-700 focus:outline-none focus:ring-4 focus:ring-indigo-300 transition duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5">
+            Submit Another Feedback
+        </a>
+    </div>
+</div>
+
+<!-- Decorative Element -->
+<div class="mt-8 text-center">
+    <p class="text-gray-500 text-sm">We'll get back to you soon!</p>
+</div>
+{% endblock %}
